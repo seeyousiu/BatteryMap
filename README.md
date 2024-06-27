@@ -1,2 +1,159 @@
 # BatteryMap
 LFP Battery Suppliers
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Battery LFP Supplier Locations</title>
+  <style>
+    #map {
+      height: 600px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <h1>Battery LFP Supplier Locations</h1>
+  <div id="map"></div>
+
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiCi0FrYWBnSmIWt_lkQ5UyKDGLx2jUM0&callback=initMap">
+  </script>
+
+  <script>
+    var batterySuppliers = [
+      {
+        name: "Panasonic (Japan)",
+        location: { lat: 35.6762, lng: 139.6503 },
+        tier: 1
+      },
+      {
+        name: "LG Energy Solution (South Korea)",
+        location: { lat: 37.5665, lng: 126.978 },
+        tier: 1
+      },
+      {
+        name: "Samsung SDI (South Korea)",
+        location: { lat: 37.5665, lng: 126.978 },
+        tier: 1
+      },
+      {
+        name: "Saft (France)",
+        location: { lat: 48.8566, lng: 2.3522 },
+        tier: 1
+      },
+      {
+        name: "Envision AESC (Japan/global)",
+        location: { lat: 35.6762, lng: 139.6503 },
+        tier: 1
+      },
+      {
+        name: "Automotive Cells Company (France - TotalEnergies/Stellantis/Mercedes-Benz)",
+        location: { lat: 48.8566, lng: 2.3522 },
+        tier: 1
+      },
+      {
+        name: "Hitachi Astemo (Japan)",
+        location: { lat: 35.6762, lng: 139.6503 },
+        tier: 1
+      },
+      {
+        name: "Varta (Germany)",
+        location: { lat: 48.7758, lng: 9.1829 },
+        tier: 2
+      },
+      {
+        name: "Leclanché (Switzerland)",
+        location: { lat: 46.7985, lng: 6.9624 },
+        tier: 2
+      },
+      {
+        name: "Akasol (Germany)",
+        location: { lat: 50.0792, lng: 8.5558 },
+        tier: 2
+      },
+      {
+        name: "Freyr Battery (Norway)",
+        location: { lat: 63.4305, lng: 10.3950 },
+        tier: 2
+      },
+      {
+        name: "Microvast (USA)",
+        location: { lat: 29.7604, lng: -95.3698 },
+        tier: 2
+      },
+      {
+        name: "BritishVolt (UK)",
+        location: { lat: 54.9778, lng: -1.6215 },
+        tier: 2
+      },
+      {
+        name: "Verkor (France)",
+        location: { lat: 45.7640, lng: 4.8357 },
+        tier: 2
+      },
+      {
+        name: "Northvolt Ett (Sweden)",
+        location: { lat: 64.7488, lng: 20.9581 },
+        tier: 2
+      },
+      {
+        name: "Ingeteam (Spain)",
+        location: { lat: 43.2630, lng: -2.9350 },
+        tier: 2
+      },
+      {
+        name: "Toshiba (Japan)",
+        location: { lat: 35.6762, lng: 139.6503 },
+        tier: 2
+      },
+      {
+        name: "GS Yuasa (Japan)",
+        location: { lat: 34.6937, lng: 135.5023 },
+        tier: 2
+      },
+      {
+        name: "StoreDot (Israel)",
+        location: { lat: 32.0853, lng: 34.7818 },
+        tier: 2
+      },
+      {
+        name: "Italvolt (Italy)",
+        location: { lat: 45.4642, lng: 9.1900 },
+        tier: 2
+      }
+    ];
+
+    function initMap() {
+      var mapOptions = {
+        zoom: 3,
+        center: { lat: 45, lng: 0 }
+      };
+
+      var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+      for (var i = 0; i < batterySuppliers.length; i++) {
+        var supplier = batterySuppliers[i];
+        (function(supplier) {
+          var marker = new google.maps.Marker({
+            position: supplier.location,
+            map: map,
+            title: supplier.name,
+            icon: {
+              url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+              scaledSize: new google.maps.Size(30, 30)
+            }
+          });
+
+          var infoWindow = new google.maps.InfoWindow({
+            content: '<h3>' + supplier.name + '</h3><p>Tier: ' + supplier.tier + '</p>'
+          });
+
+          marker.addListener('click', function() {
+            infoWindow.open(map, this);
+          });
+        })(supplier);
+      }
+    }
+  </script>
+</body>
+</html>
